@@ -53,10 +53,10 @@ double initNeuron(){
 
 Layer* initIOL(Layer* layer, int n){
 	layer->numberOfNeurons = n;
-	Neuron** list = (Neuron**)malloc(n*sizeof(Neuron*));
+	Neuron** list = malloc(n*sizeof(Neuron*));
 	int i;
 	for(i=0;i<layer->numberOfNeurons;i++){
-		Neuron* neuron = (Neuron*)malloc(sizeof(Neuron));
+		Neuron* neuron = malloc(sizeof(Neuron));
 		neuron->inputWeight = initNeuron();
 		neuron->outputWeight = initNeuron();
 		list[i] = neuron;
@@ -81,14 +81,14 @@ double newWeight(double inputWold, Brain* TB, double error,double trainset){
 }
 
 Neuron** teach(int n, int line, Brain* TB, double net,double error){
-	Neuron** list = (Neuron**)malloc(n*sizeof(Neuron*));
+	Neuron** list = malloc(n*sizeof(Neuron*));
 	double inputWnew;
 	double inputWold;
 	int j;
 	for(j=0;j<n;j++){
 		inputWold = TB->inputLayer->listOfNeurons[j]->inputWeight;
 		inputWnew = newWeight(inputWold,TB,error,trainSet[line][j]);
-		Neuron* n = (Neuron*)malloc(sizeof(Neuron));
+		Neuron* n = malloc(sizeof(Neuron));
 		n->inputWeight = inputWnew;
 		list[j] = n;
 	}
@@ -110,7 +110,7 @@ Brain* trainBrain(Brain* TB){
 			realOutput = realSet[0][i];
 			double error = realOutput - estimatedOutput;
 			if(abs(error) > TB->targetError){
-				Layer* inputLayer = (Layer*)malloc(sizeof(Layer));
+				Layer* inputLayer = malloc(sizeof(Layer));
 				inputLayer->listOfNeurons =teach(TB->trainSetRows,i,TB,net,error);
 				inputLayer->numberOfNeurons = TB->inputLayer->numberOfNeurons;
 				(TB->inputLayer) = inputLayer;
@@ -213,9 +213,9 @@ void copybackOutputWeights(Brain* TB, double* outputW){
 
 int main(){
 	srand (time(NULL));
-	Brain* TB = (Brain*)malloc(sizeof(Brain));
-	Layer* IL = (Layer*)malloc(sizeof(Layer));
-	Layer* OL = (Layer*)malloc(sizeof(Layer));
+	Brain* TB = malloc(sizeof(Brain));
+	Layer* IL = malloc(sizeof(Layer));
+	Layer* OL = malloc(sizeof(Layer));
 	double* outputW;
 	initBrainProperties(TB);
 	IL = initIOL(IL,TB->numbersOfNeuronsInInputLayer);
@@ -224,7 +224,7 @@ int main(){
 	TB->outputLayer= OL;
 	printUntrainedIL(IL);
 	printUntrainedOL(OL);
-	outputW= (double*)malloc(TB->inputLayer->numberOfNeurons*sizeof(double));
+	outputW = malloc(TB->inputLayer->numberOfNeurons * sizeof(double));
 	copyOutputWeights(TB,outputW);
 	TB = trainBrain(TB);
 	copybackOutputWeights(TB,outputW);

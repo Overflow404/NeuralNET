@@ -1,10 +1,18 @@
 # NeuralNET
-[C] Simple neural network to evaluate logic expressions
+Simple neural network to evaluate logic expressions
 
-Error checking routines are omitted.
+## Getting Started
+`git clone https://github.com/Overflow404/NeuralNET`
 
-Require:
+## Require
 gcc
 
-Compile with:
+## Compile
 gcc NeuralNET.c -o NeuralNET.out
+
+## Execute
+./NeuralNET
+
+## Authors
+
+* **Overflow404** 
